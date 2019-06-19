@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/loader.js | Solana Javascript API</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="Solana Javascript API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Solana Javascript API"><meta property="twitter:description" content="Solana Javascript API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/solana-labs/solana-web3.js"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/account.js~Account.html">Account</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bpf-loader.js~BpfLoader.html">BpfLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/budget-program.js~BudgetProgram.html">BudgetProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connection.js~Connection.html">Connection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/loader.js~Loader.html">Loader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/native-loader.js~NativeLoader.html">NativeLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/publickey.js~PublicKey.html">PublicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/system-program.js~SystemProgram.html">SystemProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~Token.html">Token</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~TokenAmount.html">TokenAmount</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~TransactionInstruction.html">TransactionInstruction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-publicKey">publicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rustString">rustString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uint64">uint64</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYSTEM_TOKEN_PROGRAM_ID">SYSTEM_TOKEN_PROGRAM_ID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PACKET_DATA_SIZE">PACKET_DATA_SIZE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Blockhhash">Blockhhash</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BudgetCondition">BudgetCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Payment">Payment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureCondition">SignatureCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TimestampCondition">TimestampCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AccountInfo">AccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ContactInfo">ContactInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyedAccountInfo">KeyedAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureSuccess">SignatureSuccess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionError">TransactionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-VoteAccountInfo">VoteAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-FeeCalculator">FeeCalculator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionCtorFields">TransactionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionInstructionCtorFields">TransactionInstructionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionSignature">TransactionSignature</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#util">util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmRawTransaction">sendAndConfirmRawTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmTransaction">sendAndConfirmTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decodeLength">decodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeLength">encodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sleep">sleep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-testnetChannelEndpoint">testnetChannelEndpoint</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/loader.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+
+import * as BufferLayout from &apos;buffer-layout&apos;;
+
+import {Account} from &apos;./account&apos;;
+import {PublicKey} from &apos;./publickey&apos;;
+import {NUM_TICKS_PER_SECOND} from &apos;./timing&apos;;
+import {Transaction, PACKET_DATA_SIZE} from &apos;./transaction&apos;;
+import {sendAndConfirmTransaction} from &apos;./util/send-and-confirm-transaction&apos;;
+import {sleep} from &apos;./util/sleep&apos;;
+import type {Connection} from &apos;./connection&apos;;
+import {SystemProgram} from &apos;./system-program&apos;;
+
+/**
+ * Program loader interface
+ */
+export class Loader {
+  /**
+   * Amount of program data placed in each load Transaction
+   */
+  static get chunkSize(): number {
+    // Keep program chunks under PACKET_DATA_SIZE, leaving enough room for the
+    // rest of the Transaction fields
+    //
+    // TODO: replace 300 with a proper constant for the size of the other
+    // Transaction fields
+    return PACKET_DATA_SIZE - 300;
+  }
+
+  /**
+   * Loads a generic program
+   *
+   * @param connection The connection to use
+   * @param payer System account that pays to load the program
+   * @param program Account to load the program into
+   * @param programId Public key that identifies the loader
+   * @param data Program octets
+   */
+  static async load(
+    connection: Connection,
+    payer: Account,
+    program: Account,
+    programId: PublicKey,
+    data: Array&lt;number&gt;,
+  ): Promise&lt;PublicKey&gt; {
+    {
+      const transaction = SystemProgram.createAccount(
+        payer.publicKey,
+        program.publicKey,
+        1,
+        data.length,
+        programId,
+      );
+      await sendAndConfirmTransaction(connection, transaction, payer);
+    }
+
+    const dataLayout = BufferLayout.struct([
+      BufferLayout.u32(&apos;instruction&apos;),
+      BufferLayout.u32(&apos;offset&apos;),
+      BufferLayout.u32(&apos;bytesLength&apos;),
+      BufferLayout.u32(&apos;bytesLengthPadding&apos;),
+      BufferLayout.seq(
+        BufferLayout.u8(&apos;byte&apos;),
+        BufferLayout.offset(BufferLayout.u32(), -8),
+        &apos;bytes&apos;,
+      ),
+    ]);
+
+    const chunkSize = Loader.chunkSize;
+    let offset = 0;
+    let array = data;
+    let transactions = [];
+    while (array.length &gt; 0) {
+      const bytes = array.slice(0, chunkSize);
+      const data = Buffer.alloc(chunkSize + 16);
+      dataLayout.encode(
+        {
+          instruction: 0, // Load instruction
+          offset,
+          bytes,
+        },
+        data,
+      );
+
+      const transaction = new Transaction().add({
+        keys: [{pubkey: program.publicKey, isSigner: true, isDebitable: true}],
+        programId,
+        data,
+      });
+      transactions.push(
+        sendAndConfirmTransaction(connection, transaction, payer, program),
+      );
+
+      // Delay ~1 tick between write transactions in an attempt to reduce AccountInUse errors
+      // since all the write transactions modify the same program account
+      await sleep(1000 / NUM_TICKS_PER_SECOND);
+
+      // Run up to 8 Loads in parallel to prevent too many parallel transactions from
+      // getting rejected with AccountInUse.
+      //
+      // TODO: 8 was selected empirically and should probably be revisited
+      if (transactions.length === 8) {
+        await Promise.all(transactions);
+        transactions = [];
+      }
+
+      offset += chunkSize;
+      array = array.slice(chunkSize);
+    }
+    await Promise.all(transactions);
+
+    // Finalize the account loaded with program data for execution
+    {
+      const dataLayout = BufferLayout.struct([BufferLayout.u32(&apos;instruction&apos;)]);
+
+      const data = Buffer.alloc(dataLayout.span);
+      dataLayout.encode(
+        {
+          instruction: 1, // Finalize instruction
+        },
+        data,
+      );
+
+      const transaction = new Transaction().add({
+        keys: [{pubkey: program.publicKey, isSigner: true, isDebitable: true}],
+        programId,
+        data,
+      });
+      await sendAndConfirmTransaction(connection, transaction, payer, program);
+    }
+    return program.publicKey;
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

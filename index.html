@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | Solana Javascript API</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="Solana Javascript API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Solana Javascript API"><meta property="twitter:description" content="Solana Javascript API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/solana-labs/solana-web3.js"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/account.js~Account.html">Account</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bpf-loader.js~BpfLoader.html">BpfLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/budget-program.js~BudgetProgram.html">BudgetProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connection.js~Connection.html">Connection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/loader.js~Loader.html">Loader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/native-loader.js~NativeLoader.html">NativeLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/publickey.js~PublicKey.html">PublicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/system-program.js~SystemProgram.html">SystemProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~Token.html">Token</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~TokenAmount.html">TokenAmount</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~TransactionInstruction.html">TransactionInstruction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-publicKey">publicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rustString">rustString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uint64">uint64</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYSTEM_TOKEN_PROGRAM_ID">SYSTEM_TOKEN_PROGRAM_ID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PACKET_DATA_SIZE">PACKET_DATA_SIZE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Blockhhash">Blockhhash</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BudgetCondition">BudgetCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Payment">Payment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureCondition">SignatureCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TimestampCondition">TimestampCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AccountInfo">AccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ContactInfo">ContactInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyedAccountInfo">KeyedAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureSuccess">SignatureSuccess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionError">TransactionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-VoteAccountInfo">VoteAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-FeeCalculator">FeeCalculator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionCtorFields">TransactionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionInstructionCtorFields">TransactionInstructionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionSignature">TransactionSignature</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#util">util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmRawTransaction">sendAndConfirmRawTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmTransaction">sendAndConfirmTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decodeLength">decodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeLength">encodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sleep">sleep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-testnetChannelEndpoint">testnetChannelEndpoint</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><a href="https://travis-ci.org/solana-labs/solana-web3.js"><img src="https://api.travis-ci.org/solana-labs/solana-web3.js.svg?branch=master" alt="Build status"></a>
+<a href="https://codecov.io/gh/solana-labs/solana-web3.js"><img src="https://codecov.io/gh/solana-labs/solana-web3.js/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="https://solana-labs.github.io/solana-web3.js/"><img src="https://solana-labs.github.io/solana-web3.js/badge.svg" alt="esdoc"></a>
+<br>
+<a href="https://www.npmjs.com/package/@solana/web3.js"><img src="https://img.shields.io/npm/v/@solana/web3.js.svg?style=flat" alt="npm"></a>
+<a href="https://www.npmjs.com/package/@solana/web3.js"><img src="https://img.shields.io/npm/dm/@solana/web3.js.svg?style=flat" alt="npm-downloads"></a>
+<a href="https://david-dm.org/solana-labs/solana-web3.js"><img src="https://david-dm.org/solana-labs/solana-web3.js.svg" alt="david"></a>
+<a href="https://david-dm.org/solana-labs/solana-web3.js?type=dev"><img src="https://david-dm.org/solana-labs/solana-web3.js/dev-status.svg" alt="david"></a>
+<br>
+<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
+<a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="code-style-prettier"></a></p>
+<h1 id="solana-javascript-api">Solana JavaScript API</h1><p>This is the Solana Javascript API built on the Solana <a href="https://solana-labs.github.io/solana/jsonrpc-api.html">JSON RPC API</a></p>
+<p><a href="https://solana-labs.github.io/solana-web3.js/">Latest API Documentation</a></p>
+<h2 id="installation">Installation</h2><h3 id="yarn">Yarn</h3><pre><code><code class="source-code prettyprint">$ yarn add @solana/web3.js</code>
+</code></pre><h3 id="npm">npm</h3><pre><code><code class="source-code prettyprint">$ npm install --save @solana/web3.js</code>
+</code></pre><h3 id="browser-bundle">Browser bundle</h3><pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;https://github.com/solana-labs/solana-web3.js/releases/download/v0.0.6/solanaWeb3.min.js&quot;&gt;&lt;/script&gt;</code>
+</code></pre>
+<h3 id="bpf-program-development">BPF program development</h3><p>clang-7.0 must be installed to build BPF programs, such as
+<code>examples/bpf-c-noop/</code>.  See <code>bpf-sdk/README.md</code> for installation details.</p>
+<p>Rust must be installed to build Rust BPF programs, see: <a href="https://www.rust-lang.org/install.html">https://www.rust-lang.org/install.html</a> such as
+<code>examples/bpf-rust-noop/</code>.  See <a href="https://www.rust-lang.org/install.html">https://www.rust-lang.org/install.html</a> for installation details.</p>
+<h2 id="usage">Usage</h2><h3 id="javascript">Javascript</h3><pre><code class="lang-js"><code class="source-code prettyprint">const solanaWeb3 = require(&apos;@solana/web3.js&apos;);
+console.log(solanaWeb3);</code>
+</code></pre>
+<h3 id="es6">ES6</h3><pre><code class="lang-js"><code class="source-code prettyprint">import solanaWeb3 from &apos;@solana/web3.js&apos;;
+console.log(solanaWeb3);</code>
+</code></pre>
+<h3 id="browser-bundle">Browser bundle</h3><pre><code class="lang-js"><code class="source-code prettyprint">// `solanaWeb3` is provided in the global namespace by the `solanaWeb3.min.js` script bundle.
+console.log(solanaWeb3);</code>
+</code></pre>
+<h2 id="local-network">Local Network</h2><p>The <code>solana-localnet</code> program is provided to easily start a test Solana cluster
+locally on your machine.  Docker must be installed.  The JSON RPC endpoint of
+the local cluster is <code>http://localhost:8899</code>.</p>
+<p>To start, first fetch the latest Docker image by running:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx solana-localnet update</code>
+</code></pre>
+<p>Then run the following command to start the cluster</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx solana-localnet up</code>
+</code></pre>
+<p>While the cluster is running logs are available with:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx solana-localnet logs -f</code>
+</code></pre>
+<p>Stop the cluster with:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">$ npx solana-localnet down</code>
+</code></pre>
+<h2 id="flow">Flow</h2><p>A <a href="https://flow.org/en/docs/libdefs/">Flow library definition</a> is provided at
+<a href="https://github.com/solana-labs/solana-web3.js/tree/master/module.flow.js">module.flow.js</a>.
+Add the following line under the [libs] section of your project&apos;s .flowconfig to
+activate it:</p>
+<pre><code class="lang-ini"><code class="source-code prettyprint">[libs]
+node_modules/@solana/web3.js/module.flow.js</code>
+</code></pre>
+<h2 id="examples">Examples</h2><p>See the <a href="https://github.com/solana-labs/solana-web3.js/tree/master/examples">examples/</a> directory for small snippets.</p>
+<p>Standalone examples:</p>
+<ul>
+<li>Web wallet: <a href="https://github.com/solana-labs/example-webwallet">https://github.com/solana-labs/example-webwallet</a></li>
+<li>Tic-tac-toe: <a href="https://github.com/solana-labs/example-tictactoe">https://github.com/solana-labs/example-tictactoe</a></li>
+</ul>
+<h2 id="releases">Releases</h2><p>Releases are available on <a href="https://github.com/solana-labs/solana-web3.js/releases">Github</a>
+and <a href="https://www.npmjs.com/package/@solana/web3.js">npmjs.com</a></p>
+<p>Each Github release features a tarball containing API documentation and a
+minified version of the module suitable for direct use in a browser environment
+(&lt;script&gt; tag)</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

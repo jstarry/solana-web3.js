@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/token-program.js | Solana Javascript API</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="Solana Javascript API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Solana Javascript API"><meta property="twitter:description" content="Solana Javascript API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/solana-labs/solana-web3.js"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/account.js~Account.html">Account</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bpf-loader.js~BpfLoader.html">BpfLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/budget-program.js~BudgetProgram.html">BudgetProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connection.js~Connection.html">Connection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/loader.js~Loader.html">Loader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/native-loader.js~NativeLoader.html">NativeLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/publickey.js~PublicKey.html">PublicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/system-program.js~SystemProgram.html">SystemProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~Token.html">Token</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~TokenAmount.html">TokenAmount</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~TransactionInstruction.html">TransactionInstruction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-publicKey">publicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rustString">rustString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uint64">uint64</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYSTEM_TOKEN_PROGRAM_ID">SYSTEM_TOKEN_PROGRAM_ID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PACKET_DATA_SIZE">PACKET_DATA_SIZE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Blockhhash">Blockhhash</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BudgetCondition">BudgetCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Payment">Payment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureCondition">SignatureCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TimestampCondition">TimestampCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AccountInfo">AccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ContactInfo">ContactInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyedAccountInfo">KeyedAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureSuccess">SignatureSuccess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionError">TransactionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-VoteAccountInfo">VoteAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-FeeCalculator">FeeCalculator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionCtorFields">TransactionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionInstructionCtorFields">TransactionInstructionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionSignature">TransactionSignature</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#util">util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmRawTransaction">sendAndConfirmRawTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmTransaction">sendAndConfirmTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decodeLength">decodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeLength">encodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sleep">sleep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-testnetChannelEndpoint">testnetChannelEndpoint</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/token-program.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * @flow
+ */
+
+import assert from &apos;assert&apos;;
+import BN from &apos;bn.js&apos;;
+import * as BufferLayout from &apos;buffer-layout&apos;;
+
+import * as Layout from &apos;./layout&apos;;
+import {Account} from &apos;./account&apos;;
+import {PublicKey} from &apos;./publickey&apos;;
+import {SystemProgram} from &apos;./system-program&apos;;
+import {Transaction, TransactionInstruction} from &apos;./transaction&apos;;
+import type {TransactionSignature} from &apos;./transaction&apos;;
+import {sendAndConfirmTransaction} from &apos;./util/send-and-confirm-transaction&apos;;
+import type {Connection} from &apos;./connection&apos;;
+
+/**
+ * Some amount of tokens
+ */
+export class TokenAmount extends BN {
+  /**
+   * Convert to Buffer representation
+   */
+  toBuffer(): Buffer {
+    const a = super.toArray().reverse();
+    const b = Buffer.from(a);
+    if (b.length === 8) {
+      return b;
+    }
+    assert(b.length &lt; 8, &apos;TokenAmount too large&apos;);
+
+    const zeroPad = Buffer.alloc(8);
+    b.copy(zeroPad);
+    return zeroPad;
+  }
+
+  /**
+   * Construct a TokenAmount from Buffer representation
+   */
+  static fromBuffer(buffer: Buffer): TokenAmount {
+    assert(buffer.length === 8, `Invalid buffer length: ${buffer.length}`);
+    return new BN(
+      [...buffer]
+        .reverse()
+        .map(i =&gt; `00${i.toString(16)}`.slice(-2))
+        .join(&apos;&apos;),
+      16,
+    );
+  }
+}
+
+/**
+ * Information about a token
+ */
+type TokenInfo = {|
+  /**
+   * Total supply of tokens
+   */
+  supply: TokenAmount,
+
+  /**
+   * Number of base 10 digits to the right of the decimal place
+   */
+  decimals: number,
+
+  /**
+   * Descriptive name of this token
+   */
+  name: string,
+
+  /**
+   * Symbol for this token
+   */
+  symbol: string,
+|};
+
+/**
+ * @private
+ */
+const TokenInfoLayout = BufferLayout.struct([
+  Layout.uint64(&apos;supply&apos;),
+  BufferLayout.u8(&apos;decimals&apos;),
+  Layout.rustString(&apos;name&apos;),
+  Layout.rustString(&apos;symbol&apos;),
+]);
+
+/**
+ * Information about a token account
+ */
+type TokenAccountInfo = {|
+  /**
+   * The kind of token this account holds
+   */
+  token: PublicKey,
+
+  /**
+   * Owner of this account
+   */
+  owner: PublicKey,
+
+  /**
+   * Amount of tokens this account holds
+   */
+  amount: TokenAmount,
+
+  /**
+   * The source account for the tokens.
+   *
+   * If `source` is null, the source is this account.
+   * If `source` is not null, the `amount` of tokens in this account represent
+   * an allowance of tokens that may be transferred from the source account
+   */
+  source: null | PublicKey,
+
+  /**
+   * Original amount of tokens this delegate account was authorized to spend
+   * If `source` is null, originalAmount is zero
+   */
+  originalAmount: TokenAmount,
+|};
+
+/**
+ * @private
+ */
+const TokenAccountInfoLayout = BufferLayout.struct([
+  Layout.publicKey(&apos;token&apos;),
+  Layout.publicKey(&apos;owner&apos;),
+  Layout.uint64(&apos;amount&apos;),
+  BufferLayout.u8(&apos;sourceOption&apos;),
+  Layout.publicKey(&apos;source&apos;),
+  Layout.uint64(&apos;originalAmount&apos;),
+]);
+
+type TokenAndPublicKey = [Token, PublicKey]; // This type exists to workaround an esdoc parse error
+
+/**
+ * The built-in token program
+ */
+export const SYSTEM_TOKEN_PROGRAM_ID = new PublicKey(
+  &apos;Token11111111111111111111111111111111111111&apos;,
+);
+
+/**
+ * An ERC20-like Token
+ */
+export class Token {
+  /**
+   * @private
+   */
+  connection: Connection;
+
+  /**
+   * The public key identifying this token
+   */
+  token: PublicKey;
+
+  /**
+   * Program Identifier for the Token program
+   */
+  programId: PublicKey;
+
+  /**
+   * Create a Token object attached to the specific token
+   *
+   * @param connection The connection to use
+   * @param token Public key of the token
+   * @param programId Optional token programId, uses the system programId by default
+   */
+  constructor(
+    connection: Connection,
+    token: PublicKey,
+    programId: PublicKey = SYSTEM_TOKEN_PROGRAM_ID,
+  ) {
+    Object.assign(this, {connection, token, programId});
+  }
+
+  /**
+   * Create a new Token
+   *
+   * @param connection The connection to use
+   * @param owner User account that will own the returned Token Account
+   * @param supply Total supply of the new token
+   * @param name Descriptive name of this token
+   * @param symbol Symbol for this token
+   * @param decimals Location of the decimal place
+   * @param programId Optional token programId, uses the system programId by default
+   * @return Token object for the newly minted token, Public key of the Token Account holding the total supply of new tokens
+   */
+  static async createNewToken(
+    connection: Connection,
+    owner: Account,
+    supply: TokenAmount,
+    name: string,
+    symbol: string,
+    decimals: number,
+    programId: PublicKey = SYSTEM_TOKEN_PROGRAM_ID,
+  ): Promise&lt;TokenAndPublicKey&gt; {
+    const tokenAccount = new Account();
+    const token = new Token(connection, tokenAccount.publicKey, programId);
+    const initialAccountPublicKey = await token.newAccount(owner, null);
+
+    let transaction;
+
+    const dataLayout = BufferLayout.struct([
+      BufferLayout.u32(&apos;instruction&apos;),
+      Layout.uint64(&apos;supply&apos;),
+      BufferLayout.u8(&apos;decimals&apos;),
+      Layout.rustString(&apos;name&apos;),
+      Layout.rustString(&apos;symbol&apos;),
+    ]);
+
+    let data = Buffer.alloc(1024);
+    {
+      const encodeLength = dataLayout.encode(
+        {
+          instruction: 0, // NewToken instruction
+          supply: supply.toBuffer(),
+          decimals,
+          name,
+          symbol,
+        },
+        data,
+      );
+      data = data.slice(0, encodeLength);
+    }
+
+    // Allocate memory for the tokenAccount account
+    transaction = SystemProgram.createAccount(
+      owner.publicKey,
+      tokenAccount.publicKey,
+      1,
+      1 + data.length,
+      programId,
+    );
+    await sendAndConfirmTransaction(connection, transaction, owner);
+
+    transaction = new Transaction().add({
+      keys: [
+        {pubkey: tokenAccount.publicKey, isSigner: true, isDebitable: false},
+        {pubkey: initialAccountPublicKey, isSigner: false, isDebitable: true},
+      ],
+      programId,
+      data,
+    });
+    await sendAndConfirmTransaction(
+      connection,
+      transaction,
+      owner,
+      tokenAccount,
+    );
+
+    return [token, initialAccountPublicKey];
+  }
+
+  /**
+   * Create a new and empty token account.
+   *
+   * This account may then be used as a `transfer()` or `approve()` destination
+   *
+   * @param owner User account that will own the new token account
+   * @param source If not null, create a delegate account that when authorized
+   *               may transfer tokens from this `source` account
+   * @return Public key of the new empty token account
+   */
+  async newAccount(
+    owner: Account,
+    source: null | PublicKey = null,
+  ): Promise&lt;PublicKey&gt; {
+    const tokenAccount = new Account();
+    let transaction;
+
+    const dataLayout = BufferLayout.struct([BufferLayout.u32(&apos;instruction&apos;)]);
+
+    const data = Buffer.alloc(dataLayout.span);
+    dataLayout.encode(
+      {
+        instruction: 1, // NewTokenAccount instruction
+      },
+      data,
+    );
+
+    // Allocate memory for the token
+    transaction = SystemProgram.createAccount(
+      owner.publicKey,
+      tokenAccount.publicKey,
+      1,
+      1 + TokenAccountInfoLayout.span,
+      this.programId,
+    );
+    await sendAndConfirmTransaction(this.connection, transaction, owner);
+
+    // Initialize the token account
+    const keys = [
+      {pubkey: tokenAccount.publicKey, isSigner: true, isDebitable: true},
+      {pubkey: owner.publicKey, isSigner: false, isDebitable: false},
+      {pubkey: this.token, isSigner: false, isDebitable: false},
+    ];
+    if (source) {
+      keys.push({pubkey: source, isSigner: false, isDebitable: false});
+    }
+    transaction = new Transaction().add({
+      keys,
+      programId: this.programId,
+      data,
+    });
+    await sendAndConfirmTransaction(
+      this.connection,
+      transaction,
+      owner,
+      tokenAccount,
+    );
+
+    return tokenAccount.publicKey;
+  }
+
+  /**
+   * Retrieve token information
+   */
+  async tokenInfo(): Promise&lt;TokenInfo&gt; {
+    const accountInfo = await this.connection.getAccountInfo(this.token);
+    if (!accountInfo.owner.equals(this.programId)) {
+      throw new Error(
+        `Invalid token owner: ${JSON.stringify(accountInfo.owner)}`,
+      );
+    }
+
+    const data = Buffer.from(accountInfo.data);
+
+    if (data.readUInt8(0) !== 1) {
+      throw new Error(`Invalid token data`);
+    }
+    const tokenInfo = TokenInfoLayout.decode(data, 1);
+    tokenInfo.supply = TokenAmount.fromBuffer(tokenInfo.supply);
+    return tokenInfo;
+  }
+
+  /**
+   * Retrieve account information
+   *
+   * @param account Public key of the token account
+   */
+  async accountInfo(account: PublicKey): Promise&lt;TokenAccountInfo&gt; {
+    const accountInfo = await this.connection.getAccountInfo(account);
+    if (!accountInfo.owner.equals(this.programId)) {
+      throw new Error(`Invalid token account owner`);
+    }
+
+    const data = Buffer.from(accountInfo.data);
+    if (data.readUInt8(0) !== 2) {
+      throw new Error(`Invalid token account data`);
+    }
+    const tokenAccountInfo = TokenAccountInfoLayout.decode(data, 1);
+
+    tokenAccountInfo.token = new PublicKey(tokenAccountInfo.token);
+    tokenAccountInfo.owner = new PublicKey(tokenAccountInfo.owner);
+    tokenAccountInfo.amount = TokenAmount.fromBuffer(tokenAccountInfo.amount);
+    if (tokenAccountInfo.sourceOption === 0) {
+      tokenAccountInfo.source = null;
+      tokenAccountInfo.originalAmount = new TokenAmount();
+    } else {
+      tokenAccountInfo.source = new PublicKey(tokenAccountInfo.source);
+      tokenAccountInfo.originalAmount = TokenAmount.fromBuffer(
+        tokenAccountInfo.originalAmount,
+      );
+    }
+
+    if (!tokenAccountInfo.token.equals(this.token)) {
+      throw new Error(
+        `Invalid token account token: ${JSON.stringify(
+          tokenAccountInfo.token,
+        )} !== ${JSON.stringify(this.token)}`,
+      );
+    }
+    return tokenAccountInfo;
+  }
+
+  /**
+   * Transfer tokens to another account
+   *
+   * @param owner Owner of the source token account
+   * @param source Source token account
+   * @param destination Destination token account
+   * @param amount Number of tokens to transfer
+   */
+  async transfer(
+    owner: Account,
+    source: PublicKey,
+    destination: PublicKey,
+    amount: number | TokenAmount,
+  ): Promise&lt;?TransactionSignature&gt; {
+    return await sendAndConfirmTransaction(
+      this.connection,
+      new Transaction().add(
+        await this.transferInstruction(
+          owner.publicKey,
+          source,
+          destination,
+          amount,
+        ),
+      ),
+      owner,
+    );
+  }
+
+  /**
+   * Grant a third-party permission to transfer up the specified number of tokens from an account
+   *
+   * @param owner Owner of the source token account
+   * @param account Public key of the token account
+   * @param delegate Token account authorized to perform a transfer tokens from the source account
+   * @param amount Maximum number of tokens the delegate may transfer
+   */
+  async approve(
+    owner: Account,
+    account: PublicKey,
+    delegate: PublicKey,
+    amount: number | TokenAmount,
+  ): Promise&lt;void&gt; {
+    await sendAndConfirmTransaction(
+      this.connection,
+      new Transaction().add(
+        this.approveInstruction(owner.publicKey, account, delegate, amount),
+      ),
+      owner,
+    );
+  }
+
+  /**
+   * Remove approval for the transfer of any remaining tokens
+   *
+   * @param owner Owner of the source token account
+   * @param account Public key of the token account
+   * @param delegate Token account to revoke authorization from
+   */
+  revoke(
+    owner: Account,
+    account: PublicKey,
+    delegate: PublicKey,
+  ): Promise&lt;void&gt; {
+    return this.approve(owner, account, delegate, 0);
+  }
+
+  /**
+   * Assign a new owner to the account
+   *
+   * @param owner Owner of the token account
+   * @param account Public key of the token account
+   * @param newOwner New owner of the token account
+   */
+  async setOwner(
+    owner: Account,
+    account: PublicKey,
+    newOwner: PublicKey,
+  ): Promise&lt;void&gt; {
+    await sendAndConfirmTransaction(
+      this.connection,
+      new Transaction().add(
+        this.setOwnerInstruction(owner.publicKey, account, newOwner),
+      ),
+      owner,
+    );
+  }
+
+  /**
+   * Construct a Transfer instruction
+   *
+   * @param owner Owner of the source token account
+   * @param source Source token account
+   * @param destination Destination token account
+   * @param amount Number of tokens to transfer
+   */
+  async transferInstruction(
+    owner: PublicKey,
+    source: PublicKey,
+    destination: PublicKey,
+    amount: number | TokenAmount,
+  ): Promise&lt;TransactionInstruction&gt; {
+    const accountInfo = await this.accountInfo(source);
+    if (!owner.equals(accountInfo.owner)) {
+      throw new Error(&apos;Account owner mismatch&apos;);
+    }
+
+    const dataLayout = BufferLayout.struct([
+      BufferLayout.u32(&apos;instruction&apos;),
+      Layout.uint64(&apos;amount&apos;),
+    ]);
+
+    const data = Buffer.alloc(dataLayout.span);
+    dataLayout.encode(
+      {
+        instruction: 2, // Transfer instruction
+        amount: new TokenAmount(amount).toBuffer(),
+      },
+      data,
+    );
+
+    const keys = [
+      {pubkey: owner, isSigner: true, isDebitable: false},
+      {pubkey: source, isSigner: false, isDebitable: true},
+      {pubkey: destination, isSigner: false, isDebitable: true},
+    ];
+    if (accountInfo.source) {
+      keys.push({
+        pubkey: accountInfo.source,
+        isSigner: false,
+        isDebitable: true,
+      });
+    }
+    return new TransactionInstruction({
+      keys,
+      programId: this.programId,
+      data,
+    });
+  }
+
+  /**
+   * Construct an Approve instruction
+   *
+   * @param owner Owner of the source token account
+   * @param account Public key of the token account
+   * @param delegate Token account authorized to perform a transfer tokens from the source account
+   * @param amount Maximum number of tokens the delegate may transfer
+   */
+  approveInstruction(
+    owner: PublicKey,
+    account: PublicKey,
+    delegate: PublicKey,
+    amount: number | TokenAmount,
+  ): TransactionInstruction {
+    const dataLayout = BufferLayout.struct([
+      BufferLayout.u32(&apos;instruction&apos;),
+      Layout.uint64(&apos;amount&apos;),
+    ]);
+
+    const data = Buffer.alloc(dataLayout.span);
+    dataLayout.encode(
+      {
+        instruction: 3, // Approve instruction
+        amount: new TokenAmount(amount).toBuffer(),
+      },
+      data,
+    );
+
+    return new TransactionInstruction({
+      keys: [
+        {pubkey: owner, isSigner: true, isDebitable: false},
+        {pubkey: account, isSigner: false, isDebitable: true},
+        {pubkey: delegate, isSigner: false, isDebitable: true},
+      ],
+      programId: this.programId,
+      data,
+    });
+  }
+
+  /**
+   * Construct an Revoke instruction
+   *
+   * @param owner Owner of the source token account
+   * @param account Public key of the token account
+   * @param delegate Token account authorized to perform a transfer tokens from the source account
+   */
+  revokeInstruction(
+    owner: PublicKey,
+    account: PublicKey,
+    delegate: PublicKey,
+  ): TransactionInstruction {
+    return this.approveInstruction(owner, account, delegate, 0);
+  }
+
+  /**
+   * Construct a SetOwner instruction
+   *
+   * @param owner Owner of the token account
+   * @param account Public key of the token account
+   * @param newOwner New owner of the token account
+   */
+  setOwnerInstruction(
+    owner: PublicKey,
+    account: PublicKey,
+    newOwner: PublicKey,
+  ): TransactionInstruction {
+    const dataLayout = BufferLayout.struct([BufferLayout.u32(&apos;instruction&apos;)]);
+
+    const data = Buffer.alloc(dataLayout.span);
+    dataLayout.encode(
+      {
+        instruction: 4, // SetOwner instruction
+      },
+      data,
+    );
+
+    return new TransactionInstruction({
+      keys: [
+        {pubkey: owner, isSigner: true, isDebitable: false},
+        {pubkey: account, isSigner: false, isDebitable: true},
+        {pubkey: newOwner, isSigner: false, isDebitable: true},
+      ],
+      programId: this.programId,
+      data,
+    });
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

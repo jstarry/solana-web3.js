@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/budget-program.js | Solana Javascript API</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-theme.css"><meta name="description" content="Solana Javascript API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Solana Javascript API"><meta property="twitter:description" content="Solana Javascript API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/solana-labs/solana-web3.js"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/account.js~Account.html">Account</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/bpf-loader.js~BpfLoader.html">BpfLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/budget-program.js~BudgetProgram.html">BudgetProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/connection.js~Connection.html">Connection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/loader.js~Loader.html">Loader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/native-loader.js~NativeLoader.html">NativeLoader</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/publickey.js~PublicKey.html">PublicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/system-program.js~SystemProgram.html">SystemProgram</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~Token.html">Token</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/token-program.js~TokenAmount.html">TokenAmount</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~Transaction.html">Transaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transaction.js~TransactionInstruction.html">TransactionInstruction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-publicKey">publicKey</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rustString">rustString</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uint64">uint64</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-SYSTEM_TOKEN_PROGRAM_ID">SYSTEM_TOKEN_PROGRAM_ID</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PACKET_DATA_SIZE">PACKET_DATA_SIZE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Blockhhash">Blockhhash</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BudgetCondition">BudgetCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Payment">Payment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureCondition">SignatureCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TimestampCondition">TimestampCondition</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-AccountInfo">AccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ContactInfo">ContactInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-KeyedAccountInfo">KeyedAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-SignatureSuccess">SignatureSuccess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionError">TransactionError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-VoteAccountInfo">VoteAccountInfo</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-FeeCalculator">FeeCalculator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionCtorFields">TransactionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionInstructionCtorFields">TransactionInstructionCtorFields</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TransactionSignature">TransactionSignature</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#util">util</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmRawTransaction">sendAndConfirmRawTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAndConfirmTransaction">sendAndConfirmTransaction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-decodeLength">decodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-encodeLength">encodeLength</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sleep">sleep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-testnetChannelEndpoint">testnetChannelEndpoint</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/budget-program.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @flow
+
+import * as BufferLayout from &apos;buffer-layout&apos;;
+
+import {Transaction} from &apos;./transaction&apos;;
+import {PublicKey} from &apos;./publickey&apos;;
+import {SystemProgram} from &apos;./system-program&apos;;
+
+/**
+ * Represents a condition that is met by executing a `applySignature()`
+ * transaction
+ *
+ * @typedef {Object} SignatureCondition
+ * @property {string} type Must equal the string &apos;timestamp&apos;
+ * @property {PublicKey} from Public key from which `applySignature()` will be accepted from
+ */
+export type SignatureCondition = {
+  type: &apos;signature&apos;,
+  from: PublicKey,
+};
+
+/**
+ * Represents a condition that is met by executing a `applyTimestamp()`
+ * transaction
+ *
+ * @typedef {Object} TimestampCondition
+ * @property {string} type Must equal the string &apos;timestamp&apos;
+ * @property {PublicKey} from Public key from which `applyTimestamp()` will be accepted from
+ * @property {Date} when The timestamp that was observed
+ */
+export type TimestampCondition = {
+  type: &apos;timestamp&apos;,
+  from: PublicKey,
+  when: Date,
+};
+
+/**
+ * Represents a payment to a given public key
+ *
+ * @typedef {Object} Payment
+ * @property {number} amount Number of lamports
+ * @property {PublicKey} to Public key of the recipient
+ */
+export type Payment = {
+  amount: number,
+  to: PublicKey,
+};
+
+/**
+ * A condition that can unlock a payment
+ *
+ * @typedef {SignatureCondition|TimestampCondition} BudgetCondition
+ */
+export type BudgetCondition = SignatureCondition | TimestampCondition;
+
+/**
+ * @private
+ */
+function serializePayment(payment: Payment): Buffer {
+  const toData = payment.to.toBuffer();
+  const data = Buffer.alloc(8 + toData.length);
+  data.writeUInt32LE(payment.amount, 0);
+  toData.copy(data, 8);
+  return data;
+}
+
+/**
+ * @private
+ */
+function serializeDate(when: Date): Buffer {
+  const data = Buffer.alloc(8 + 20);
+  data.writeUInt32LE(20, 0); // size of timestamp as u64
+
+  function iso(date) {
+    function pad(number) {
+      if (number &lt; 10) {
+        return &apos;0&apos; + number;
+      }
+      return number;
+    }
+
+    return (
+      date.getUTCFullYear() +
+      &apos;-&apos; +
+      pad(date.getUTCMonth() + 1) +
+      &apos;-&apos; +
+      pad(date.getUTCDate()) +
+      &apos;T&apos; +
+      pad(date.getUTCHours()) +
+      &apos;:&apos; +
+      pad(date.getUTCMinutes()) +
+      &apos;:&apos; +
+      pad(date.getUTCSeconds()) +
+      &apos;Z&apos;
+    );
+  }
+  data.write(iso(when), 8);
+  return data;
+}
+
+/**
+ * @private
+ */
+function serializeCondition(condition: BudgetCondition) {
+  switch (condition.type) {
+    case &apos;timestamp&apos;: {
+      const date = serializeDate(condition.when);
+      const from = condition.from.toBuffer();
+
+      const data = Buffer.alloc(4 + date.length + from.length);
+      data.writeUInt32LE(0, 0); // Condition enum = Timestamp
+      date.copy(data, 4);
+      from.copy(data, 4 + date.length);
+      return data;
+    }
+    case &apos;signature&apos;: {
+      const from = condition.from.toBuffer();
+      const data = Buffer.alloc(4 + from.length);
+      data.writeUInt32LE(1, 0); // Condition enum = Signature
+      from.copy(data, 4);
+      return data;
+    }
+    default:
+      throw new Error(`Unknown condition type: ${condition.type}`);
+  }
+}
+
+/**
+ * Factory class for transactions to interact with the Budget program
+ */
+export class BudgetProgram {
+  /**
+   * Public key that identifies the Budget program
+   */
+  static get programId(): PublicKey {
+    return new PublicKey(&apos;Budget1111111111111111111111111111111111111&apos;);
+  }
+
+  /**
+   * The amount of space this program requires
+   */
+  static get space(): number {
+    return 128;
+  }
+
+  /**
+   * Creates a timestamp condition
+   */
+  static timestampCondition(from: PublicKey, when: Date): TimestampCondition {
+    return {
+      type: &apos;timestamp&apos;,
+      from,
+      when,
+    };
+  }
+
+  /**
+   * Creates a signature condition
+   */
+  static signatureCondition(from: PublicKey): SignatureCondition {
+    return {
+      type: &apos;signature&apos;,
+      from,
+    };
+  }
+
+  /**
+   * Generates a transaction that transfers lamports once any of the conditions are met
+   */
+  static pay(
+    from: PublicKey,
+    program: PublicKey,
+    to: PublicKey,
+    amount: number,
+    ...conditions: Array&lt;BudgetCondition&gt;
+  ): Transaction {
+    const data = Buffer.alloc(1024);
+    let pos = 0;
+    data.writeUInt32LE(0, pos); // NewBudget instruction
+    pos += 4;
+
+    switch (conditions.length) {
+      case 0: {
+        data.writeUInt32LE(0, pos); // BudgetExpr enum = Pay
+        pos += 4;
+
+        {
+          const payment = serializePayment({amount, to});
+          payment.copy(data, pos);
+          pos += payment.length;
+        }
+        const trimmedData = data.slice(0, pos);
+
+        const transaction = SystemProgram.createAccount(
+          from,
+          program,
+          amount,
+          trimmedData.length,
+          this.programId,
+        );
+
+        return transaction.add({
+          keys: [
+            {pubkey: to, isSigner: false, isDebitable: false},
+            {pubkey: program, isSigner: false, isDebitable: true},
+          ],
+          programId: this.programId,
+          data: trimmedData,
+        });
+      }
+      case 1: {
+        data.writeUInt32LE(1, pos); // BudgetExpr enum = After
+        pos += 4;
+        {
+          const condition = conditions[0];
+
+          const conditionData = serializeCondition(condition);
+          conditionData.copy(data, pos);
+          pos += conditionData.length;
+
+          data.writeUInt32LE(0, pos); // BudgetExpr enum = Pay
+          pos += 4;
+
+          const paymentData = serializePayment({amount, to});
+          paymentData.copy(data, pos);
+          pos += paymentData.length;
+        }
+        const trimmedData = data.slice(0, pos);
+
+        const transaction = SystemProgram.createAccount(
+          from,
+          program,
+          amount,
+          trimmedData.length,
+          this.programId,
+        );
+
+        return transaction.add({
+          keys: [{pubkey: program, isSigner: false, isDebitable: true}],
+          programId: this.programId,
+          data: trimmedData,
+        });
+      }
+
+      case 2: {
+        data.writeUInt32LE(2, pos); // BudgetExpr enum = Or
+        pos += 4;
+
+        for (let condition of conditions) {
+          const conditionData = serializeCondition(condition);
+          conditionData.copy(data, pos);
+          pos += conditionData.length;
+
+          data.writeUInt32LE(0, pos); // BudgetExpr enum = Pay
+          pos += 4;
+
+          const paymentData = serializePayment({amount, to});
+          paymentData.copy(data, pos);
+          pos += paymentData.length;
+        }
+        const trimmedData = data.slice(0, pos);
+
+        const transaction = SystemProgram.createAccount(
+          from,
+          program,
+          amount,
+          trimmedData.length,
+          this.programId,
+        );
+
+        return transaction.add({
+          keys: [{pubkey: program, isSigner: false, isDebitable: true}],
+          programId: this.programId,
+          data: trimmedData,
+        });
+      }
+
+      default:
+        throw new Error(
+          `A maximum of two conditions are support: ${
+            conditions.length
+          } provided`,
+        );
+    }
+  }
+
+  /**
+   * Generates a transaction that transfers lamports once both conditions are met
+   */
+  static payOnBoth(
+    from: PublicKey,
+    program: PublicKey,
+    to: PublicKey,
+    amount: number,
+    condition1: BudgetCondition,
+    condition2: BudgetCondition,
+  ): Transaction {
+    const data = Buffer.alloc(1024);
+    let pos = 0;
+    data.writeUInt32LE(0, pos); // NewBudget instruction
+    pos += 4;
+
+    data.writeUInt32LE(3, pos); // BudgetExpr enum = And
+    pos += 4;
+
+    for (let condition of [condition1, condition2]) {
+      const conditionData = serializeCondition(condition);
+      conditionData.copy(data, pos);
+      pos += conditionData.length;
+    }
+
+    data.writeUInt32LE(0, pos); // BudgetExpr enum = Pay
+    pos += 4;
+
+    const paymentData = serializePayment({amount, to});
+    paymentData.copy(data, pos);
+    pos += paymentData.length;
+
+    const trimmedData = data.slice(0, pos);
+
+    const transaction = SystemProgram.createAccount(
+      from,
+      program,
+      amount,
+      trimmedData.length,
+      this.programId,
+    );
+
+    return transaction.add({
+      keys: [{pubkey: program, isSigner: false, isDebitable: true}],
+      programId: this.programId,
+      data: trimmedData,
+    });
+  }
+
+  /**
+   * Generates a transaction that applies a timestamp, which could enable a
+   * pending payment to proceed.
+   */
+  static applyTimestamp(
+    from: PublicKey,
+    program: PublicKey,
+    to: PublicKey,
+    when: Date,
+  ): Transaction {
+    const whenData = serializeDate(when);
+    const data = Buffer.alloc(4 + whenData.length);
+
+    data.writeUInt32LE(1, 0); // ApplyTimestamp instruction
+    whenData.copy(data, 4);
+
+    return new Transaction().add({
+      keys: [
+        {pubkey: from, isSigner: true, isDebitable: true},
+        {pubkey: program, isSigner: false, isDebitable: true},
+        {pubkey: to, isSigner: false, isDebitable: false},
+      ],
+      programId: this.programId,
+      data,
+    });
+  }
+
+  /**
+   * Generates a transaction that applies a signature, which could enable a
+   * pending payment to proceed.
+   */
+  static applySignature(
+    from: PublicKey,
+    program: PublicKey,
+    to: PublicKey,
+  ): Transaction {
+    const dataLayout = BufferLayout.struct([BufferLayout.u32(&apos;instruction&apos;)]);
+
+    const data = Buffer.alloc(dataLayout.span);
+    dataLayout.encode(
+      {
+        instruction: 2, // ApplySignature instruction
+      },
+      data,
+    );
+
+    return new Transaction().add({
+      keys: [
+        {pubkey: from, isSigner: true, isDebitable: true},
+        {pubkey: program, isSigner: false, isDebitable: true},
+        {pubkey: to, isSigner: false, isDebitable: false},
+      ],
+      programId: this.programId,
+      data,
+    });
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
