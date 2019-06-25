@@ -16,9 +16,6 @@ coverage
 flow-typed/npm/*
 !flow-typed/npm/module_vx.x.x.js
 
-# Release
-lib
-
 # Generated docs
 doc
 
