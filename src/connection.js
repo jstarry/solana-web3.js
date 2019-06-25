@@ -419,9 +419,9 @@ export class Connection {
 
     return {
       executable: result.executable,
-      owner: new PublicKey(result.owner),
+      owner: result.owner,
       lamports: result.lamports,
-      data: Buffer.from(result.data),
+      data: result.data,
     };
   }
 
@@ -908,3 +908,4 @@ export class Connection {
     }
   }
 }
+window.Connection = Connection;

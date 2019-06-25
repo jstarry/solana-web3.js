@@ -72,3 +72,4 @@ export class PublicKey {
     return this.toBase58();
   }
 }
+window.PublicKey = PublicKey;
