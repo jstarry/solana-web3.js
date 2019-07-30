@@ -8,7 +8,7 @@
     ["module-resolver", {
       "root": ["./src"],
     }],
-    "@babel/transform-runtime",
+    "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-function-bind",
   ],
@@ -16,7 +16,7 @@
   "env": {
     "test": {
       "plugins": [
-        "@babel/transform-runtime",
+        "@babel/plugin-transform-runtime",
       ],
       "presets": [
         "@babel/preset-env",
