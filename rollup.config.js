@@ -6,6 +6,7 @@ import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 import {terser} from 'rollup-plugin-terser';
+import wasm from 'rollup-plugin-wasm';
 
 const env = process.env.NODE_ENV;
 
@@ -37,6 +38,7 @@ function generateConfig(configType) {
       ];
       config.plugins.push(builtins());
       config.plugins.push(globals());
+      config.plugins.push(wasm());
       config.plugins.push(
         nodeResolve({
           browser: true,
