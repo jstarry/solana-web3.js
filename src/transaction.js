@@ -6,7 +6,7 @@ import nacl from 'tweetnacl';
 import bs58 from 'bs58';
 
 import * as Layout from './layout';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 import {Account} from './account';
 import * as shortvec from './util/shortvec-encoding';
 import type {Blockhash} from './blockhash';

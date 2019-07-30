@@ -2,7 +2,7 @@
 import nacl from 'tweetnacl';
 import type {KeyPair} from 'tweetnacl';
 
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 
 /**
  * An account key pair (public and secret keys).

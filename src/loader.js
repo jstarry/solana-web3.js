@@ -3,7 +3,7 @@
 import * as BufferLayout from 'buffer-layout';
 
 import {Account} from './account';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 import {NUM_TICKS_PER_SECOND} from './timing';
 import {Transaction, PACKET_DATA_SIZE} from './transaction';
 import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';

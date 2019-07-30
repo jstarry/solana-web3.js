@@ -8,7 +8,7 @@ import * as BufferLayout from 'buffer-layout';
 
 import * as Layout from './layout';
 import {Account} from './account';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 import {SystemProgram} from './system-program';
 import {Transaction, TransactionInstruction} from './transaction';
 import type {TransactionSignature} from './transaction';

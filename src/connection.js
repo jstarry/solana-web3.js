@@ -8,7 +8,7 @@ import {struct} from 'superstruct';
 import {Client as RpcWebSocketClient} from 'rpc-websockets';
 
 import {DEFAULT_TICKS_PER_SLOT, NUM_TICKS_PER_SECOND} from './timing';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 import {Transaction} from './transaction';
 import {sleep} from './util/sleep';
 import type {Blockhash} from './blockhash';

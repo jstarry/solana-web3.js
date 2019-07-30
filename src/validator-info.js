@@ -4,7 +4,7 @@ import {struct} from 'superstruct';
 
 import * as Layout from './layout';
 import * as shortvec from './util/shortvec-encoding';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 
 export const VALIDATOR_INFO_KEY = new PublicKey(
   'Va1idator1nfo111111111111111111111111111111',

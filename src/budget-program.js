@@ -3,7 +3,7 @@
 import * as BufferLayout from 'buffer-layout';
 
 import {Transaction} from './transaction';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 import {SystemProgram} from './system-program';
 
 /**

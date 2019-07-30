@@ -1,7 +1,7 @@
 // @flow
 
 import {Account} from './account';
-import {PublicKey} from './publickey';
+import {PublicKey} from '@solana/wasm';
 import {Loader} from './loader';
 import type {Connection} from './connection';
 

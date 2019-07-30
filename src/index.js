@@ -4,7 +4,7 @@ export {BpfLoader} from './bpf-loader';
 export {BudgetProgram} from './budget-program';
 export {Connection} from './connection';
 export {Loader} from './loader';
-export {PublicKey} from './publickey';
+export {PublicKey} from '@solana/wasm';
 export {SystemProgram} from './system-program';
 export {Token, TokenAmount} from './token-program';
 export {Transaction, TransactionInstruction} from './transaction';
