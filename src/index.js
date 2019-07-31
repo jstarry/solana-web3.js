@@ -25,6 +25,7 @@
 export {testnetChannelEndpoint} from './util/testnet';
 export {PublicKey, set_panic_hook} from '@solana/wasm';
 export {SystemProgram} from './system-program';
+set_panic_hook();
 
 // const async_import = (async () => {
 //   const {PublicKey, set_panic_hook} = await import('@solana/wasm');
