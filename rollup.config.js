@@ -93,6 +93,7 @@ function generateConfig(configType) {
         '@babel/runtime/helpers/toConsumableArray',
         '@babel/runtime/helpers/typeof',
         '@babel/runtime/regenerator',
+        '@solana/wasm',
         'bn.js',
         'bs58',
         'buffer-layout',

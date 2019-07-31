@@ -1,14 +1,20 @@
 // @flow
 
-const wasm = import('@solana/wasm');
+// import('@solana/wasm').then((wasm) => {
+//   console.log("HIIIIIII");
+//   wasm.set_panic_hook();
+//   import('./index.js').catch(e => console.error('Error importing `index.js`:', e));
+// });
 
+// const wasm = import('@solana/wasm');
+
+import systemProgram from './system-program';
 import {Account} from './account';
-import {BpfLoader} from './bpf-loader';
-import {BudgetProgram} from './budget-program';
+// import {BpfLoader} from './bpf-loader';
+// import {BudgetProgram} from './budget-program';
 import {Connection} from './connection';
-import {Loader} from './loader';
-import {SystemProgram} from './system-program';
-import {Token, TokenAmount} from './token-program';
+// import {Loader} from './loader';
+// import {Token, TokenAmount} from './token-program';
 import {Transaction, TransactionInstruction} from './transaction';
 import {VALIDATOR_INFO_KEY, ValidatorInfo} from './validator-info';
 import {VOTE_ACCOUNT_KEY, VoteAccount} from './vote-account';
@@ -19,7 +25,7 @@ import {
 import {testnetChannelEndpoint} from './util/testnet';
 
 module.exports = (async () => {
-  const {PublicKey, set_panic_hook} = await wasm;
+  const {PublicKey, set_panic_hook} = await import('@solana/wasm');
   set_panic_hook();
 
   // const {Account} = require('./account');
@@ -35,31 +41,27 @@ module.exports = (async () => {
   // const {sendAndConfirmTransaction} = require('./util/send-and-confirm-transaction');
   // const {sendAndConfirmRawTransaction} = require('./util/send-and-confirm-raw-transaction');
   // const {testnetChannelEndpoint} = require('./util/testnet');
+  const SystemProgram = await systemProgram();
 
   return {
-    Account, BpfLoader, BudgetProgram, Connection, Loader, SystemProgram, Token,
-    TokenAmount, Transaction, TransactionInstruction, VALIDATOR_INFO_KEY,
+    Account, Connection, SystemProgram, Transaction, TransactionInstruction, VALIDATOR_INFO_KEY,
     ValidatorInfo, VOTE_ACCOUNT_KEY, VoteAccount, sendAndConfirmTransaction,
     sendAndConfirmRawTransaction, testnetChannelEndpoint,
   };
 })();
 
+// export {PublicKey} from '@solana/wasm';
+//
 // export {Account} from './account';
 // export {BpfLoader} from './bpf-loader';
 // export {BudgetProgram} from './budget-program';
 // export {Connection} from './connection';
 // export {Loader} from './loader';
-// export {PublicKey} from '@solana/wasm';
 // export {SystemProgram} from './system-program';
 // export {Token, TokenAmount} from './token-program';
 // export {Transaction, TransactionInstruction} from './transaction';
 // export {VALIDATOR_INFO_KEY, ValidatorInfo} from './validator-info';
 // export {VOTE_ACCOUNT_KEY, VoteAccount} from './vote-account';
 // export {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
-// export {
-//   sendAndConfirmRawTransaction,
-// } from './util/send-and-confirm-raw-transaction';
+// export {sendAndConfirmRawTransaction} from './util/send-and-confirm-raw-transaction';
 // export {testnetChannelEndpoint} from './util/testnet';
-//
-// import {set_panic_hook} from '@solana/wasm';
-// set_panic_hook();
