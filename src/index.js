@@ -24,7 +24,7 @@ import systemProgram from './system-program';
 // } from './util/send-and-confirm-raw-transaction';
 import {testnetChannelEndpoint} from './util/testnet';
 
-module.exports = (async () => {
+const async_import = (async () => {
   const {PublicKey, set_panic_hook} = await import('@solana/wasm');
   set_panic_hook();
 
@@ -50,6 +50,8 @@ module.exports = (async () => {
   //   sendAndConfirmRawTransaction, testnetChannelEndpoint,
   // };
 })();
+
+export default async_import;
 
 // export {PublicKey} from '@solana/wasm';
 //
