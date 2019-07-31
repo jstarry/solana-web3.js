@@ -23,8 +23,9 @@
 //   sendAndConfirmRawTransaction,
 // } from './util/send-and-confirm-raw-transaction';
 export {testnetChannelEndpoint} from './util/testnet';
-export {PublicKey, set_panic_hook} from '@solana/wasm';
+export {PublicKey} from '@solana/wasm';
 export {SystemProgram} from './system-program';
+import {set_panic_hook} from '@solana/wasm';
 set_panic_hook();
 
 // const async_import = (async () => {
