@@ -22,7 +22,7 @@ import systemProgram from './system-program';
 // import {
 //   sendAndConfirmRawTransaction,
 // } from './util/send-and-confirm-raw-transaction';
-// import {testnetChannelEndpoint} from './util/testnet';
+import {testnetChannelEndpoint} from './util/testnet';
 
 module.exports = (async () => {
   const {PublicKey, set_panic_hook} = await import('@solana/wasm');
@@ -42,7 +42,7 @@ module.exports = (async () => {
   // const {sendAndConfirmRawTransaction} = require('./util/send-and-confirm-raw-transaction');
   // const {testnetChannelEndpoint} = require('./util/testnet');
   const SystemProgram = await systemProgram();
-  return { PublicKey, SystemProgram };
+  return { PublicKey, SystemProgram, testnetChannelEndpoint };
 
   // return {
   //   Account, Connection, SystemProgram, Transaction, TransactionInstruction, VALIDATOR_INFO_KEY,
