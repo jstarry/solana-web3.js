@@ -9,20 +9,20 @@
 // const wasm = import('@solana/wasm');
 
 import systemProgram from './system-program';
-import {Account} from './account';
+// import {Account} from './account';
 // import {BpfLoader} from './bpf-loader';
 // import {BudgetProgram} from './budget-program';
-import {Connection} from './connection';
+// import {Connection} from './connection';
 // import {Loader} from './loader';
 // import {Token, TokenAmount} from './token-program';
-import {Transaction, TransactionInstruction} from './transaction';
-import {VALIDATOR_INFO_KEY, ValidatorInfo} from './validator-info';
-import {VOTE_ACCOUNT_KEY, VoteAccount} from './vote-account';
-import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
-import {
-  sendAndConfirmRawTransaction,
-} from './util/send-and-confirm-raw-transaction';
-import {testnetChannelEndpoint} from './util/testnet';
+// import {Transaction, TransactionInstruction} from './transaction';
+// import {VALIDATOR_INFO_KEY, ValidatorInfo} from './validator-info';
+// import {VOTE_ACCOUNT_KEY, VoteAccount} from './vote-account';
+// import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
+// import {
+//   sendAndConfirmRawTransaction,
+// } from './util/send-and-confirm-raw-transaction';
+// import {testnetChannelEndpoint} from './util/testnet';
 
 module.exports = (async () => {
   const {PublicKey, set_panic_hook} = await import('@solana/wasm');
@@ -42,12 +42,13 @@ module.exports = (async () => {
   // const {sendAndConfirmRawTransaction} = require('./util/send-and-confirm-raw-transaction');
   // const {testnetChannelEndpoint} = require('./util/testnet');
   const SystemProgram = await systemProgram();
+  return { PublicKey, SystemProgram };
 
-  return {
-    Account, Connection, SystemProgram, Transaction, TransactionInstruction, VALIDATOR_INFO_KEY,
-    ValidatorInfo, VOTE_ACCOUNT_KEY, VoteAccount, sendAndConfirmTransaction,
-    sendAndConfirmRawTransaction, testnetChannelEndpoint,
-  };
+  // return {
+  //   Account, Connection, SystemProgram, Transaction, TransactionInstruction, VALIDATOR_INFO_KEY,
+  //   ValidatorInfo, VOTE_ACCOUNT_KEY, VoteAccount, sendAndConfirmTransaction,
+  //   sendAndConfirmRawTransaction, testnetChannelEndpoint,
+  // };
 })();
 
 // export {PublicKey} from '@solana/wasm';
