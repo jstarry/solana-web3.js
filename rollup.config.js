@@ -111,4 +111,4 @@ function generateConfig(configType) {
   return config;
 }
 
-export default [generateConfig('node'), generateConfig('browser')];
+export default [generateConfig('node')/*, generateConfig('browser')*/];

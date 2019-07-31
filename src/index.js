@@ -1,21 +1,40 @@
 // @flow
+
+const wasm = import('@solana/wasm');
+
+import {Account} from './account';
+import {BpfLoader} from './bpf-loader';
+import {BudgetProgram} from './budget-program';
+import {Connection} from './connection';
+import {Loader} from './loader';
+import {SystemProgram} from './system-program';
+import {Token, TokenAmount} from './token-program';
+import {Transaction, TransactionInstruction} from './transaction';
+import {VALIDATOR_INFO_KEY, ValidatorInfo} from './validator-info';
+import {VOTE_ACCOUNT_KEY, VoteAccount} from './vote-account';
+import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
+import {
+  sendAndConfirmRawTransaction,
+} from './util/send-and-confirm-raw-transaction';
+import {testnetChannelEndpoint} from './util/testnet';
+
 module.exports = (async () => {
-  const {PublicKey, set_panic_hook} = await require('@solana/wasm');
+  const {PublicKey, set_panic_hook} = await wasm;
   set_panic_hook();
 
-  const {Account} = require('./account');
-  const {BpfLoader} = require('./bpf-loader');
-  const {BudgetProgram} = require('./budget-program');
-  const {Connection} = require('./connection');
-  const {Loader} = require('./loader');
-  const {SystemProgram} = require('./system-program');
-  const {Token, TokenAmount} = require('./token-program');
-  const {Transaction, TransactionInstruction} = require('./transaction');
-  const {VALIDATOR_INFO_KEY, ValidatorInfo} = require('./validator-info');
-  const {VOTE_ACCOUNT_KEY, VoteAccount} = require('./vote-account');
-  const {sendAndConfirmTransaction} = require('./util/send-and-confirm-transaction');
-  const {sendAndConfirmRawTransaction} = require('./util/send-and-confirm-raw-transaction');
-  const {testnetChannelEndpoint} = require('./util/testnet');
+  // const {Account} = require('./account');
+  // const {BpfLoader} = require('./bpf-loader');
+  // const {BudgetProgram} = require('./budget-program');
+  // const {Connection} = require('./connection');
+  // const {Loader} = require('./loader');
+  // const {SystemProgram} = require('./system-program');
+  // const {Token, TokenAmount} = require('./token-program');
+  // const {Transaction, TransactionInstruction} = require('./transaction');
+  // const {VALIDATOR_INFO_KEY, ValidatorInfo} = require('./validator-info');
+  // const {VOTE_ACCOUNT_KEY, VoteAccount} = require('./vote-account');
+  // const {sendAndConfirmTransaction} = require('./util/send-and-confirm-transaction');
+  // const {sendAndConfirmRawTransaction} = require('./util/send-and-confirm-raw-transaction');
+  // const {testnetChannelEndpoint} = require('./util/testnet');
 
   return {
     Account, BpfLoader, BudgetProgram, Connection, Loader, SystemProgram, Token,
