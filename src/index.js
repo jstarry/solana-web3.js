@@ -15,3 +15,6 @@ export {
   sendAndConfirmRawTransaction,
 } from './util/send-and-confirm-raw-transaction';
 export {testnetChannelEndpoint} from './util/testnet';
+
+import {set_panic_hook} from '@solana/wasm';
+set_panic_hook();
