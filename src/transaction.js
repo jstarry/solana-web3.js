@@ -17,13 +17,6 @@ import type {Blockhash} from './blockhash';
 export type TransactionSignature = string;
 
 /**
- * Default (empty) signature
- *
- * Signatures are 64 bytes in length
- */
-const DEFAULT_SIGNATURE = Array(64).fill(0);
-
-/**
  * Maximum over-the-wire size of a Transaction
  *
  * 1280 is IPv6 minimum MTU
@@ -171,6 +164,7 @@ export class Transaction {
     }
 
     const keys = this.signatures.map(({publicKey}) => publicKey.toString());
+    let numRequiredSignatures = 0;
     let numCreditOnlySignedAccounts = 0;
     let numCreditOnlyUnsignedAccounts = 0;
 
@@ -181,10 +175,7 @@ export class Transaction {
         const keyStr = keySignerPair.pubkey.toString();
         if (!keys.includes(keyStr)) {
           if (keySignerPair.isSigner) {
-            this.signatures.push({
-              signature: null,
-              publicKey: keySignerPair.pubkey,
-            });
+            numRequiredSignatures += 1;
             if (!keySignerPair.isDebitable) {
               numCreditOnlySignedAccounts += 1;
             }
@@ -209,6 +200,12 @@ export class Transaction {
         numCreditOnlyUnsignedAccounts += 1;
       }
     });
+
+    if (numRequiredSignatures > this.signatures.length) {
+      throw new Error(
+        `Insufficent signatures: expected ${numRequiredSignatures} but got ${this.signatures.length}`,
+      );
+    }
 
     let keyCount = [];
     shortvec.encodeLength(keyCount, keys.length);
@@ -394,13 +391,12 @@ export class Transaction {
     invariant(signatures.length < 256);
     Buffer.from(signatureCount).copy(wireTransaction, 0);
     signatures.forEach(({signature}, index) => {
-      if (signature !== null) {
-        invariant(signature.length === 64, `signature has invalid length`);
-        Buffer.from(signature).copy(
-          wireTransaction,
-          signatureCount.length + index * 64,
-        );
-      }
+      invariant(signature !== null, `null signature`);
+      invariant(signature.length === 64, `signature has invalid length`);
+      Buffer.from(signature).copy(
+        wireTransaction,
+        signatureCount.length + index * 64,
+      );
     });
     signData.copy(
       wireTransaction,
@@ -510,10 +506,7 @@ export class Transaction {
     transaction.recentBlockhash = new PublicKey(recentBlockhash).toBase58();
     for (let i = 0; i < signatureCount; i++) {
       const sigPubkeyPair = {
-        signature:
-          signatures[i].toString() == DEFAULT_SIGNATURE.toString()
-            ? null
-            : Buffer.from(signatures[i]),
+        signature: Buffer.from(signatures[i]),
         publicKey: new PublicKey(accounts[i]),
       };
       transaction.signatures.push(sigPubkeyPair);
