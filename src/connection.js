@@ -399,9 +399,10 @@ const GetVoteAccounts = jsonRpcResult(
         nodePubkey: 'string',
         activatedStake: 'number',
         epochVoteAccount: 'boolean',
-        epochCredits: struct.union(['null', struct.list([
-          struct.tuple(['number', 'number', 'number']),
-        ])]),
+        epochCredits: struct.union([
+          'null',
+          struct.list([struct.tuple(['number', 'number', 'number'])]),
+        ]),
         commission: 'number',
         lastVote: 'number',
         rootSlot: 'number?',
@@ -413,9 +414,10 @@ const GetVoteAccounts = jsonRpcResult(
         nodePubkey: 'string',
         activatedStake: 'number',
         epochVoteAccount: 'boolean',
-        epochCredits: struct.union(['null', struct.list([
-          struct.tuple(['number', 'number', 'number']),
-        ])]),
+        epochCredits: struct.union([
+          'null',
+          struct.list([struct.tuple(['number', 'number', 'number'])]),
+        ]),
         commission: 'number',
         lastVote: 'number',
         rootSlot: 'number?',
