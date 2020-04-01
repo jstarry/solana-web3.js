@@ -622,6 +622,7 @@ export class Transaction {
         programId: new PublicKey(accounts[instructions[i].programIndex]),
         data: bs58.decode(instructions[i].data),
       };
+      console.log(JSON.stringify(instructions[i]));
       for (let j = 0; j < instructions[i].accounts.length; j++) {
         const pubkey = new PublicKey(accounts[instructions[i].accounts[j]]);
 
@@ -639,6 +640,7 @@ export class Transaction {
           ),
         });
       }
+      console.log(JSON.stringify(instructionData));
       let instruction = new TransactionInstruction(instructionData);
       transaction.instructions.push(instruction);
     }
