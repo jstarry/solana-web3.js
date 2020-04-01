@@ -585,7 +585,7 @@ export class Transaction {
     signatures: Array<string>,
     accounts: Array<string>,
     instructions: Array<any>,
-    recentBlockhash: Array<number>,
+    recentBlockhash: string | Buffer,
     numRequiredSignatures: number,
     numReadonlySignedAccounts: number,
     numReadonlyUnsignedAccounts: number,
@@ -628,7 +628,7 @@ export class Transaction {
         instructionData.keys.push({
           pubkey,
           isSigner: transaction.signatures.some(
-            keyObj => keyObj.publicKey.toString() === pubkey.toString(),
+            keyObj => keyObj.publicKey.equals(pubkey),
           ),
           isWritable: isWritable(
             j,

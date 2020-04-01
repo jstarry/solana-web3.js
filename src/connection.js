@@ -529,14 +529,11 @@ export const GetConfirmedBlockRpcResult = jsonRpcResult(
                 numReadonlyUnsignedAccounts: 'number',
               }),
               instructions: struct.array([
-                struct.union([
-                  struct.array(['number']),
-                  struct({
-                    accounts: struct.array(['number']),
-                    data: 'string',
-                    programIdIndex: 'number',
-                  }),
-                ]),
+                struct({
+                  accounts: struct.array(['number']),
+                  data: 'string',
+                  programIdIndex: 'number',
+                }),
               ]),
               recentBlockhash: 'string',
             }),
