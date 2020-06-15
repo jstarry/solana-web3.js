@@ -1845,6 +1845,7 @@ export class Connection {
    * @private
    */
   _wsOnOpen() {
+    console.log('ws open');
     this._rpcWebSocketConnected = true;
     this._updateSubscriptions();
   }
@@ -1859,7 +1860,8 @@ export class Connection {
   /**
    * @private
    */
-  _wsOnClose() {
+  _wsOnClose(code: number, message: string) {
+    console.log('ws close:', code, message);
     this._rpcWebSocketConnected = false;
     this._resetSubscriptions();
   }
@@ -1949,11 +1951,13 @@ export class Connection {
       signatureKeys.length === 0 &&
       rootKeys.length === 0
     ) {
+      console.debug("close ws");
       this._rpcWebSocket.close();
       return;
     }
 
     if (!this._rpcWebSocketConnected) {
+      console.debug("connect to ws");
       this._resetSubscriptions();
       this._rpcWebSocket.connect();
       return;
