@@ -68,7 +68,7 @@ function generateConfig(configType, format) {
             'node-fetch',
             'rpc-websockets',
             'secp256k1',
-            'superstruct',
+            // 'superstruct',
             'tweetnacl',
           ];
 
