@@ -60,15 +60,15 @@ function generateConfig(configType, format) {
             /@babel\/runtime/,
             'bn.js',
             'bs58',
-            'buffer',
-            'buffer-layout',
+            // 'buffer',
+            // 'buffer-layout',
             'crypto-hash',
             'jayson/lib/client/browser',
             'js-sha3',
             'node-fetch',
             'rpc-websockets',
             'secp256k1',
-            // 'superstruct',
+            'superstruct',
             'tweetnacl',
           ];
 
