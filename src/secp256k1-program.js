@@ -1,5 +1,6 @@
 // @flow
 
+import {Buffer} from 'buffer';
 import * as BufferLayout from 'buffer-layout';
 import secp256k1 from 'secp256k1';
 import createKeccakHash from 'keccak';
