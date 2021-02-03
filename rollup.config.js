@@ -59,7 +59,7 @@ function generateConfig(configType, format) {
           config.external = [
             /@babel\/runtime/,
             'bn.js',
-            'bs58',
+            // 'bs58',
             // 'buffer',
             // 'buffer-layout',
             'crypto-hash',
