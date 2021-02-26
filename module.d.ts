@@ -284,6 +284,21 @@ declare module '@solana/web3.js' {
     root: number;
   };
 
+  export type SlotUpdate = {
+    type: 'frozen',
+    slot: number,
+    timestamp: number,
+    entry_stats: {
+      numTransactions: number,
+      numEntries: number,
+      maxTxPerEntry: number,
+    },
+  } | {
+    type: string;
+    slot: number;
+    timestamp: number;
+  };
+
   export type TokenAmount = {
     uiAmount: number;
     decimals: number;
@@ -297,6 +312,31 @@ declare module '@solana/web3.js' {
     uiAmount: number;
   };
 
+  export type SignatureStatusNotification = {
+    type: 'status';
+    result: SignatureResult;
+  };
+
+  export type SignatureReceivedNotification = {
+    type: 'received';
+  };
+
+  /**
+   * Callback function for signature notifications
+   */
+  export type SignatureSubscriptionCallback = (
+    notification: SignatureStatusNotification | SignatureReceivedNotification,
+    context: Context,
+  ) => void;
+
+  /**
+   * Callback function for signature notifications
+   */
+  export type SignatureSubscriptionOptions = {
+    commitment?: Commitment;
+    enableReceivedNotification?: boolean;
+  };
+
   export type AccountChangeCallback = (
     accountInfo: AccountInfo<Buffer>,
     context: Context,
@@ -306,6 +346,7 @@ declare module '@solana/web3.js' {
     context: Context,
   ) => void;
   export type SlotChangeCallback = (slotInfo: SlotInfo) => void;
+  export type SlotUpdateCallback = (slotUpdate: SlotUpdate) => void;
   export type SignatureResultCallback = (
     signatureResult: SignatureResult,
     context: Context,
@@ -518,7 +559,14 @@ declare module '@solana/web3.js' {
     ): number;
     removeProgramAccountChangeListener(id: number): Promise<void>;
     onSlotChange(callback: SlotChangeCallback): number;
+    onSlotUpdate(callback: SlotUpdateCallback): number;
     removeSlotChangeListener(id: number): Promise<void>;
+    removeSlotUpdateListener(id: number): Promise<void>;
+    onTransaction(
+      signature: TransactionSignature,
+      callback: SignatureSubscriptionCallback,
+      options?: SignatureSubscriptionOptions,
+    ): number;
     onSignature(
       signature: TransactionSignature,
       callback: SignatureResultCallback,

@@ -22,6 +22,7 @@ import {
   create,
   tuple,
   unknown,
+  object,
 } from 'superstruct';
 import type {Struct} from 'superstruct';
 import {Client as RpcWebSocketClient} from 'rpc-websockets';
@@ -407,6 +408,11 @@ const TransactionErrorResult = nullable(pick({}));
 const SignatureStatusResult = pick({
   err: TransactionErrorResult,
 });
+
+/**
+ * Signature status for a transaction
+ */
+const SignatureReceivedResult = literal('receivedSignature');
 
 /**
  * Version info for a node
@@ -999,11 +1005,42 @@ const SlotNotificationResult = pick({
 });
 
 /**
+ * @private
+ */
+const SlotUpdateResult = union([
+  pick({
+    type: literal('frozen'),
+    slot: number(),
+    timestamp: number(),
+    entry_stats: pick({
+      numTransactions: number(),
+      numEntries: number(),
+      maxTxPerEntry: number(),
+    }),
+  }),
+  object({
+    type: string(),
+    slot: number(),
+    timestamp: number(),
+  })
+]);
+
+/**
+ * Expected JSON RPC response for the "slotsUpdatesNotification" message
+ */
+const SlotUpdateNotificationResult = pick({
+  subscription: number(),
+  result: SlotUpdateResult,
+});
+
+/**
  * Expected JSON RPC response for the "signatureNotification" message
  */
 const SignatureNotificationResult = pick({
   subscription: number(),
-  result: notificationResultAndContext(SignatureStatusResult),
+  result: notificationResultAndContext(
+    union([SignatureStatusResult, SignatureReceivedResult]),
+  ),
 });
 
 /**
@@ -1396,6 +1433,27 @@ export type AccountChangeCallback = (
   context: Context,
 ) => void;
 
+export type SlotUpdateType =
+  | 'optimisticConfirmation'
+  | 'firstShredReceived'
+  | 'blockEnd'
+  | 'blockComplete'
+  | 'frozen';
+
+export type SlotUpdate = {
+  type: SlotUpdateType,
+  slot: number,
+  timestamp: number,
+};
+
+/**
+ * Callback function for account change notifications
+ */
+export type SlotUpdatesSubscriptionCallback = (
+  accountInfo: AccountInfo<Buffer>,
+  context: Context,
+) => void;
+
 /**
  * @private
  */
@@ -1443,6 +1501,19 @@ type SlotSubscriptionInfo = {
 };
 
 /**
+ * Callback function for slot update notifications
+ */
+export type SlotUpdateCallback = (slotUpdate: SlotUpdate) => void;
+
+/**
+ * @private
+ */
+type SlotUpdateSubscriptionInfo = {
+  callback: SlotUpdateCallback,
+  subscriptionId: ?SubscriptionId, // null when there's no current server subscription id
+};
+
+/**
  * Callback function for signature notifications
  */
 export type SignatureResultCallback = (
@@ -1450,13 +1521,38 @@ export type SignatureResultCallback = (
   context: Context,
 ) => void;
 
+type SignatureStatusNotification = {
+  type: 'status',
+  result: SignatureResult,
+};
+
+type SignatureReceivedNotification = {
+  type: 'received',
+};
+
+/**
+ * Callback function for signature notifications
+ */
+export type SignatureSubscriptionCallback = (
+  notification: SignatureStatusNotification | SignatureReceivedNotification,
+  context: Context,
+) => void;
+
+/**
+ * Callback function for signature notifications
+ */
+export type SignatureSubscriptionOptions = {
+  commitment: ?Commitment,
+  enableReceivedNotification?: boolean,
+};
+
 /**
  * @private
  */
 type SignatureSubscriptionInfo = {
   signature: TransactionSignature, // TransactionSignature as a base 58 string
-  callback: SignatureResultCallback,
-  commitment: ?Commitment,
+  callback: SignatureSubscriptionCallback,
+  options: ?SignatureSubscriptionOptions,
   subscriptionId: ?SubscriptionId, // null when there's no current server subscription id
 };
 
@@ -1553,6 +1649,10 @@ export class Connection {
     [number]: SlotSubscriptionInfo,
   } = {};
   _slotSubscriptionCounter: number = 0;
+  _slotUpdateSubscriptions: {
+    [number]: SlotUpdateSubscriptionInfo,
+  } = {};
+  _slotUpdateSubscriptionCounter: number = 0;
   _signatureSubscriptions: {
     [number]: SignatureSubscriptionInfo,
   } = {};
@@ -1612,6 +1712,10 @@ export class Connection {
     this._rpcWebSocket.on(
       'slotNotification',
       this._wsOnSlotNotification.bind(this),
+    );
+    this._rpcWebSocket.on(
+      'slotsUpdatesNotification',
+      this._wsOnSlotUpdatesNotification.bind(this),
     );
     this._rpcWebSocket.on(
       'signatureNotification',
@@ -2843,6 +2947,9 @@ export class Connection {
     (Object.values(this._slotSubscriptions): any).forEach(
       s => (s.subscriptionId = null),
     );
+    (Object.values(this._slotUpdateSubscriptions): any).forEach(
+      s => (s.subscriptionId = null),
+    );
     (Object.values(this._rootSubscriptions): any).forEach(
       s => (s.subscriptionId = null),
     );
@@ -2859,12 +2966,16 @@ export class Connection {
       this._programAccountChangeSubscriptions,
     ).map(Number);
     const slotKeys = Object.keys(this._slotSubscriptions).map(Number);
+    const slotUpdateKeys = Object.keys(this._slotUpdateSubscriptions).map(
+      Number,
+    );
     const signatureKeys = Object.keys(this._signatureSubscriptions).map(Number);
     const rootKeys = Object.keys(this._rootSubscriptions).map(Number);
     if (
       accountKeys.length === 0 &&
       programKeys.length === 0 &&
       slotKeys.length === 0 &&
+      slotUpdateKeys.length === 0 &&
       signatureKeys.length === 0 &&
       rootKeys.length === 0
     ) {
@@ -2912,13 +3023,16 @@ export class Connection {
       this._subscribe(sub, 'slotSubscribe', []);
     }
 
+    for (let id of slotUpdateKeys) {
+      const sub = this._slotUpdateSubscriptions[id];
+      this._subscribe(sub, 'slotsUpdatesSubscribe', []);
+    }
+
     for (let id of signatureKeys) {
       const sub = this._signatureSubscriptions[id];
-      this._subscribe(
-        sub,
-        'signatureSubscribe',
-        this._buildArgs([sub.signature], sub.commitment),
-      );
+      const args = [sub.signature];
+      if (sub.options) args.push(sub.options);
+      this._subscribe(sub, 'signatureSubscribe', args);
     }
 
     for (let id of rootKeys) {
@@ -3105,6 +3219,57 @@ export class Connection {
     }
   }
 
+  /**
+   * @private
+   */
+  _wsOnSlotUpdatesNotification(notification: Object) {
+    const res = create(notification, SlotUpdateNotificationResult);
+    if (res.error) {
+      throw new Error('slot update notification failed: ' + res.error.message);
+    }
+    assert(typeof res.result !== 'undefined');
+    const keys = Object.keys(this._slotUpdateSubscriptions).map(Number);
+    for (let id of keys) {
+      const sub = this._slotUpdateSubscriptions[id];
+      if (sub.subscriptionId === res.subscription) {
+        sub.callback(res.result);
+        return true;
+      }
+    }
+  }
+
+  /**
+   * Register a callback to be invoked upon slot changes
+   *
+   * @param callback Function to invoke whenever the slot changes
+   * @return subscription id
+   */
+  onSlotUpdate(callback: SlotUpdateCallback): number {
+    const id = ++this._slotUpdateSubscriptionCounter;
+    this._slotUpdateSubscriptions[id] = {
+      callback,
+      subscriptionId: null,
+    };
+    this._updateSubscriptions();
+    return id;
+  }
+
+  /**
+   * Deregister a slot notification callback
+   *
+   * @param id subscription id to deregister
+   */
+  async removeSlotUpdateListener(id: number): Promise<void> {
+    if (this._slotUpdateSubscriptions[id]) {
+      const subInfo = this._slotUpdateSubscriptions[id];
+      delete this._slotUpdateSubscriptions[id];
+      await this._unsubscribe(subInfo, 'slotsUpdatesUnsubscribe');
+      this._updateSubscriptions();
+    } else {
+      throw new Error(`Unknown slot update id: ${id}`);
+    }
+  }
+
   _buildArgs(
     args: Array<any>,
     override: ?Commitment,
@@ -3140,11 +3305,18 @@ export class Connection {
     for (let id of keys) {
       const sub = this._signatureSubscriptions[id];
       if (sub.subscriptionId === res.subscription) {
-        // Signatures subscriptions are auto-removed by the RPC service so
-        // no need to explicitly send an unsubscribe message
-        delete this._signatureSubscriptions[id];
-        this._updateSubscriptions();
-        sub.callback(res.result.value, res.result.context);
+        if (res.result.value === 'receivedSignature') {
+          sub.callback({ type: "received" }, res.result.context);
+        } else {
+          // Signatures subscriptions are auto-removed by the RPC service so
+          // no need to explicitly send an unsubscribe message
+          delete this._signatureSubscriptions[id];
+          this._updateSubscriptions();
+          sub.callback({
+            type: "status",
+            ...res.result.value
+          }, res.result.context);
+        }
         return;
       }
     }
@@ -3152,6 +3324,7 @@ export class Connection {
 
   /**
    * Register a callback to be invoked upon signature updates
+   * @deprecated Deprecated since v0.93.0, please use `onTransaction`
    *
    * @param signature Transaction signature string in base 58
    * @param callback Function to invoke on signature notifications
@@ -3166,8 +3339,38 @@ export class Connection {
     const id = ++this._signatureSubscriptionCounter;
     this._signatureSubscriptions[id] = {
       signature,
+      callback: (notification, context) => {
+        if (notification.type === 'status') {
+          callback(notification.result, context);
+        }
+      },
+      options: {commitment},
+      subscriptionId: null,
+    };
+    this._updateSubscriptions();
+    return id;
+  }
+
+  /**
+   * Register a callback to be invoked when a transaction is
+   * received and/or processed.
+   *
+   * @param signature Transaction signature string in base 58
+   * @param callback Function to invoke on signature notifications
+   * @param options Enable received notifications and set the commitment
+   *   level that signature must reach before notification
+   * @return subscription id
+   */
+  onTransaction(
+    signature: TransactionSignature,
+    callback: SignatureSubscriptionCallback,
+    options: ?SignatureSubscriptionOptions,
+  ): number {
+    const id = ++this._signatureSubscriptionCounter;
+    this._signatureSubscriptions[id] = {
+      signature,
       callback,
-      commitment,
+      options,
       subscriptionId: null,
     };
     this._updateSubscriptions();
