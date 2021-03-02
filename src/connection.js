@@ -405,14 +405,26 @@ const TransactionErrorResult = nullable(pick({}));
 /**
  * Signature status for a transaction
  */
-const SignatureStatusResult = pick({
+const SignatureProcessedResult = pick({
+  type: literal('processedSignature'),
   err: TransactionErrorResult,
 });
 
 /**
  * Signature status for a transaction
  */
-const SignatureReceivedResult = literal('receivedSignature');
+const SignatureReceivedResult = pick({
+  type: literal('receivedSignature'),
+  timestamp: number(),
+});
+
+/**
+ * Signature status for a transaction
+ */
+const SignatureSubscribedResult = pick({
+  type: literal('subscribedSignature'),
+  timestamp: number(),
+});
 
 /**
  * Version info for a node
@@ -1022,7 +1034,7 @@ const SlotUpdateResult = union([
     type: string(),
     slot: number(),
     timestamp: number(),
-  })
+  }),
 ]);
 
 /**
@@ -1039,7 +1051,11 @@ const SlotUpdateNotificationResult = pick({
 const SignatureNotificationResult = pick({
   subscription: number(),
   result: notificationResultAndContext(
-    union([SignatureStatusResult, SignatureReceivedResult]),
+    union([
+      SignatureProcessedResult,
+      SignatureReceivedResult,
+      SignatureSubscribedResult,
+    ]),
   ),
 });
 
@@ -3305,17 +3321,12 @@ export class Connection {
     for (let id of keys) {
       const sub = this._signatureSubscriptions[id];
       if (sub.subscriptionId === res.subscription) {
-        if (res.result.value === 'receivedSignature') {
-          sub.callback({ type: "received" }, res.result.context);
-        } else {
+        sub.callback(res.result.value, res.result.context);
+        if (res.result.value.type === 'processedSignature') {
           // Signatures subscriptions are auto-removed by the RPC service so
           // no need to explicitly send an unsubscribe message
           delete this._signatureSubscriptions[id];
           this._updateSubscriptions();
-          sub.callback({
-            type: "status",
-            ...res.result.value
-          }, res.result.context);
         }
         return;
       }

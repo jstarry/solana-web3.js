@@ -284,20 +284,22 @@ declare module '@solana/web3.js' {
     root: number;
   };
 
-  export type SlotUpdate = {
-    type: 'frozen',
-    slot: number,
-    timestamp: number,
-    entry_stats: {
-      numTransactions: number,
-      numEntries: number,
-      maxTxPerEntry: number,
-    },
-  } | {
-    type: string;
-    slot: number;
-    timestamp: number;
-  };
+  export type SlotUpdate =
+    | {
+        type: 'frozen';
+        slot: number;
+        timestamp: number;
+        entry_stats: {
+          numTransactions: number;
+          numEntries: number;
+          maxTxPerEntry: number;
+        };
+      }
+    | {
+        type: string;
+        slot: number;
+        timestamp: number;
+      };
 
   export type TokenAmount = {
     uiAmount: number;
@@ -313,12 +315,18 @@ declare module '@solana/web3.js' {
   };
 
   export type SignatureStatusNotification = {
-    type: 'status';
-    result: SignatureResult;
+    type: 'processedSignature';
+    err: TransactionError | null;
   };
 
   export type SignatureReceivedNotification = {
-    type: 'received';
+    type: 'receivedSignature';
+    timestamp: number;
+  };
+
+  export type SignatureSubscribedNotification = {
+    type: 'subscribedSignature';
+    timestamp: number;
   };
 
   /**
