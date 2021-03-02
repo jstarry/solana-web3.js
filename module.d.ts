@@ -317,6 +317,7 @@ declare module '@solana/web3.js' {
   export type SignatureStatusNotification = {
     type: 'processedSignature';
     err: TransactionError | null;
+    timestamp: number;
   };
 
   export type SignatureReceivedNotification = {

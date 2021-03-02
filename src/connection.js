@@ -408,6 +408,7 @@ const TransactionErrorResult = nullable(pick({}));
 const SignatureProcessedResult = pick({
   type: literal('processedSignature'),
   err: TransactionErrorResult,
+  timestamp: number(),
 });
 
 /**
