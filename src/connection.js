@@ -3352,7 +3352,7 @@ export class Connection {
     this._signatureSubscriptions[id] = {
       signature,
       callback: (notification, context) => {
-        if (notification.type === 'status') {
+        if (notification.type === 'processedSignature') {
           callback(notification.result, context);
         }
       },
