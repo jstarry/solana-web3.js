@@ -3353,7 +3353,7 @@ export class Connection {
       signature,
       callback: (notification, context) => {
         if (notification.type === 'processedSignature') {
-          callback(notification.result, context);
+          callback({err: notification.err}, context);
         }
       },
       options: {commitment},
