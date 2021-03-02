@@ -70,6 +70,7 @@
     "localnet:up": "bin/localnet.sh up",
     "localnet:update": "bin/localnet.sh update",
     "ok": "run-s lint flow test doc defs",
+    "prepare": "run-s clean build",
     "pretty": "prettier --check '{,{examples,src,test}/**/}*.{j,t}s'",
     "pretty:fix": "prettier --write '{,{examples,src,test}/**/}*.{j,t}s'",
     "re": "semantic-release --repository-url git@github.com:solana-labs/solana-web3.js.git",
