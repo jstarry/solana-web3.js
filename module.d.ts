@@ -284,22 +284,48 @@ declare module '@solana/web3.js' {
     root: number;
   };
 
+  export type FirstShredUpdate = {
+    type: 'firstShredReceived';
+    parent: number;
+    slot: number;
+    timestamp: number;
+  };
+
+  export type FrozenUpdate = {
+    type: 'frozen';
+    entry_stats?: {
+      numTransactions: number;
+      numEntries: number;
+      maxTxPerEntry: number;
+    };
+    slot: number;
+    timestamp: number;
+  };
+
+  export type DeadUpdate = {
+    type: 'dead';
+    err: string;
+    slot: number;
+    timestamp: number;
+  };
+
+  export type SlotUpdateType =
+    | 'optimisticConfirmation'
+    | 'lastShredReceived'
+    | 'allShredsReceived'
+    | 'startReplay'
+    | 'voted'
+    | 'root';
+
   export type SlotUpdate =
     | {
-        type: 'frozen';
+        type: SlotUpdateType;
         slot: number;
         timestamp: number;
-        entry_stats: {
-          numTransactions: number;
-          numEntries: number;
-          maxTxPerEntry: number;
-        };
       }
-    | {
-        type: string;
-        slot: number;
-        timestamp: number;
-      };
+    | FirstShredUpdate
+    | FrozenUpdate
+    | DeadUpdate;
 
   export type TokenAmount = {
     uiAmount: number;

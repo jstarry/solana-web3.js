@@ -1031,6 +1031,17 @@ const SlotUpdateResult = union([
       maxTxPerEntry: number(),
     }),
   }),
+  pick({
+    type: literal('firstShredReceived'),
+    parent: number(),
+    slot: number(),
+    timestamp: number(),
+  }),
+  pick({
+    type: literal('dead'),
+    parent: number(),
+    err: string(),
+  }),
   object({
     type: string(),
     slot: number(),
@@ -1450,18 +1461,48 @@ export type AccountChangeCallback = (
   context: Context,
 ) => void;
 
-export type SlotUpdateType =
-  | 'optimisticConfirmation'
-  | 'firstShredReceived'
-  | 'blockEnd'
-  | 'blockComplete'
-  | 'frozen';
-
-export type SlotUpdate = {
-  type: SlotUpdateType,
+export type FirstShredUpdate = {
+  type: 'firstShredReceived',
+  parent: number,
   slot: number,
   timestamp: number,
 };
+
+export type FrozenUpdate = {
+  type: 'frozen',
+  entry_stats?: {
+    numTransactions: number,
+    numEntries: number,
+    maxTxPerEntry: number,
+  },
+  slot: number,
+  timestamp: number,
+};
+
+export type DeadUpdate = {
+  type: 'dead',
+  err: string,
+  slot: number,
+  timestamp: number,
+};
+
+export type SlotUpdateType =
+  | 'optimisticConfirmation'
+  | 'lastShredReceived'
+  | 'allShredsReceived'
+  | 'startReplay'
+  | 'voted'
+  | 'root';
+
+export type SlotUpdate =
+  | {
+      type: SlotUpdateType,
+      slot: number,
+      timestamp: number,
+    }
+  | FirstShredUpdate
+  | FrozenUpdate
+  | DeadUpdate;
 
 /**
  * Callback function for account change notifications
