@@ -1039,7 +1039,7 @@ const SlotUpdateResult = union([
   }),
   pick({
     type: literal('dead'),
-    parent: number(),
+    slot: number(),
     err: string(),
   }),
   object({
