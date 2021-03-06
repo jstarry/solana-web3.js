@@ -1462,7 +1462,7 @@ export type AccountChangeCallback = (
 ) => void;
 
 export type FirstShredUpdate = {
-  type: 'firstShredReceived',
+  type: 'firstDataShredReceived',
   parent: number,
   slot: number,
   timestamp: number,
@@ -1470,10 +1470,11 @@ export type FirstShredUpdate = {
 
 export type FrozenUpdate = {
   type: 'frozen',
-  entry_stats?: {
-    numTransactions: number,
-    numEntries: number,
-    maxTxPerEntry: number,
+  stats?: {
+    numSuccessfulTransactions: number,
+    numFailedTransactions: number,
+    numTransactionEntries: number,
+    maxTransactionsPerEntry: number,
   },
   slot: number,
   timestamp: number,
@@ -1487,11 +1488,10 @@ export type DeadUpdate = {
 };
 
 export type SlotUpdateType =
-  | 'optimisticConfirmation'
-  | 'lastShredReceived'
-  | 'allShredsReceived'
+  | 'firstCodingShredReceived'
+  | 'shredsFull'
   | 'startReplay'
-  | 'voted'
+  | 'optimisticConfirmation'
   | 'root';
 
 export type SlotUpdate =
