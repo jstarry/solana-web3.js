@@ -1461,13 +1461,6 @@ export type AccountChangeCallback = (
   context: Context,
 ) => void;
 
-export type FirstShredUpdate = {
-  type: 'firstDataShredReceived',
-  parent: number,
-  slot: number,
-  timestamp: number,
-};
-
 export type FrozenUpdate = {
   type: 'frozen',
   stats?: {
@@ -1487,10 +1480,16 @@ export type DeadUpdate = {
   timestamp: number,
 };
 
+export type CreatedBankUpdate = {
+  type: 'createdBank',
+  slot: number,
+  parent: number,
+  timestamp: number,
+};
+
 export type SlotUpdateType =
-  | 'firstCodingShredReceived'
+  | 'firstShredReceived'
   | 'shredsFull'
-  | 'startReplay'
   | 'optimisticConfirmation'
   | 'root';
 
@@ -1500,7 +1499,7 @@ export type SlotUpdate =
       slot: number,
       timestamp: number,
     }
-  | FirstShredUpdate
+  | CreatedBankUpdate
   | FrozenUpdate
   | DeadUpdate;
 

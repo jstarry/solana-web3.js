@@ -284,22 +284,23 @@ declare module '@solana/web3.js' {
     root: number;
   };
 
-  export type FirstShredUpdate = {
-    type: 'firstShredReceived';
-    parent: number;
-    slot: number;
-    timestamp: number;
+  export type CreatedBankUpdate = {
+    type: 'createdBank',
+    slot: number,
+    parent: number,
+    timestamp: number,
   };
-
+  
   export type FrozenUpdate = {
-    type: 'frozen';
-    entry_stats?: {
-      numTransactions: number;
-      numEntries: number;
-      maxTxPerEntry: number;
-    };
-    slot: number;
-    timestamp: number;
+    type: 'frozen',
+    stats?: {
+      numSuccessfulTransactions: number,
+      numFailedTransactions: number,
+      numTransactionEntries: number,
+      maxTransactionsPerEntry: number,
+    },
+    slot: number,
+    timestamp: number,
   };
 
   export type DeadUpdate = {
@@ -310,22 +311,20 @@ declare module '@solana/web3.js' {
   };
 
   export type SlotUpdateType =
-    | 'optimisticConfirmation'
-    | 'lastShredReceived'
-    | 'allShredsReceived'
-    | 'startReplay'
-    | 'voted'
-    | 'root';
+  | 'firstShredReceived'
+  | 'shredsFull'
+  | 'optimisticConfirmation'
+  | 'root';
 
   export type SlotUpdate =
-    | {
-        type: SlotUpdateType;
-        slot: number;
-        timestamp: number;
-      }
-    | FirstShredUpdate
-    | FrozenUpdate
-    | DeadUpdate;
+  | {
+      type: SlotUpdateType,
+      slot: number,
+      timestamp: number,
+    }
+  | CreatedBankUpdate
+  | FrozenUpdate
+  | DeadUpdate;
 
   export type TokenAmount = {
     uiAmount: number;
