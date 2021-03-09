@@ -1025,14 +1025,15 @@ const SlotUpdateResult = union([
     type: literal('frozen'),
     slot: number(),
     timestamp: number(),
-    entry_stats: pick({
-      numTransactions: number(),
-      numEntries: number(),
-      maxTxPerEntry: number(),
+    stats: pick({
+      numSuccessfulTransactions: number(),
+      numFailedTransactions: number(),
+      numTransactionEntries: number(),
+      maxTransactionsPerEntry: number(),
     }),
   }),
   pick({
-    type: literal('firstShredReceived'),
+    type: literal('createdBank'),
     parent: number(),
     slot: number(),
     timestamp: number(),
