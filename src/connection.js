@@ -3373,6 +3373,12 @@ export class Connection {
         return;
       }
     }
+
+    if (res.result.value.type === "subscribedSignature") {
+      setTimeout(() => {
+        this._wsOnSignatureNotification(notification);
+      }, 100);
+    }
   }
 
   /**
