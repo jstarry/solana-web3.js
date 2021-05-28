@@ -1170,6 +1170,12 @@ export type SlotUpdate =
       type: 'root';
       slot: number;
       timestamp: number;
+    }
+  | {
+      type: 'confirmationProgress';
+      slot: number;
+      progress: number[];
+      timestamp: number;
     };
 
 /**
@@ -1208,6 +1214,12 @@ const SlotUpdateResult = union([
     slot: number(),
     timestamp: number(),
     err: string(),
+  }),
+  pick({
+    type: literal('confirmationProgress'),
+    slot: number(),
+    timestamp: number(),
+    progress: tuple([number(), number(), number()]),
   }),
 ]);
 
@@ -3892,7 +3904,14 @@ export class Connection {
    * @internal
    */
   _wsOnSlotUpdatesNotification(notification: Object) {
-    const res = create(notification, SlotUpdateNotificationResult);
+    let res;
+    try {
+      res = create(notification, SlotUpdateNotificationResult);
+    } catch (err) {
+      console.warn('Unexpected notification received', notification, err);
+      return;
+    }
+
     for (const sub of Object.values(this._slotUpdateSubscriptions)) {
       if (sub.subscriptionId === res.subscription) {
         sub.callback(res.result);
