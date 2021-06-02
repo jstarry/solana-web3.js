@@ -217,14 +217,14 @@ export class Transaction {
       console.warn('No instructions provided');
     }
 
-    let feePayer: PublicKey;
+    let feePayer: PublicKey | undefined;
     if (this.feePayer) {
       feePayer = this.feePayer;
     } else if (this.signatures.length > 0 && this.signatures[0].publicKey) {
       // Use implicit fee payer
       feePayer = this.signatures[0].publicKey;
     } else {
-      throw new Error('Transaction fee payer required');
+      console.warn('No fee payer');
     }
 
     for (let i = 0; i < this.instructions.length; i++) {
@@ -281,20 +281,23 @@ export class Transaction {
     });
 
     // Move fee payer to the front
-    const feePayerIndex = uniqueMetas.findIndex(x => {
-      return x.pubkey.equals(feePayer);
-    });
-    if (feePayerIndex > -1) {
-      const [payerMeta] = uniqueMetas.splice(feePayerIndex, 1);
-      payerMeta.isSigner = true;
-      payerMeta.isWritable = true;
-      uniqueMetas.unshift(payerMeta);
-    } else {
-      uniqueMetas.unshift({
-        pubkey: feePayer,
-        isSigner: true,
-        isWritable: true,
+    if (feePayer) {
+      const feePayerIndex = uniqueMetas.findIndex(x => {
+        if (feePayer) return x.pubkey.equals(feePayer);
+        return false;
       });
+      if (feePayerIndex > -1) {
+        const [payerMeta] = uniqueMetas.splice(feePayerIndex, 1);
+        payerMeta.isSigner = true;
+        payerMeta.isWritable = true;
+        uniqueMetas.unshift(payerMeta);
+      } else {
+        uniqueMetas.unshift({
+          pubkey: feePayer,
+          isSigner: true,
+          isWritable: true,
+        });
+      }
     }
 
     // Disallow unknown signers
