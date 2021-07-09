@@ -37,6 +37,7 @@
     "/src"
   ],
   "scripts": {
+    "prepare": "npm run build",
     "build": "npm run clean; cross-env NODE_ENV=production rollup -c; npm run type:gen; npm run flow:gen; npm run flow:check",
     "build:browser-test": "rollup -c test/rollup.config.js",
     "build:fixtures": "set -ex; ./test/fixtures/noop-program/build.sh",
